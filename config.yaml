@@ -1,0 +1,41 @@
+# Facial Recognition System Configuration
+# ==========================================
+
+# Detection settings
+detection:
+  model: "hog"  # Options: hog, cnn
+  upsample_times: 1
+  min_face_size: 20
+  confidence_threshold: 0.6
+
+# Encoding settings
+encoding:
+  model: "large"  # Options: small, large
+  num_jitters: 1
+  encoding_dimension: 128
+
+# Matching settings
+matching:
+  tolerance: 0.6
+  algorithm: "euclidean"  # Options: euclidean, cosine
+  top_k: 5
+
+# Data paths
+paths:
+  known_faces_dir: "data/known_faces"
+  input_dir: "data/input"
+  output_dir: "data/output"
+  encodings_cache: "data/encodings.pkl"
+
+# Logging
+logging:
+  level: "INFO"
+  format: "%%(asctime)s - %%(name)s - %%(levelname)s - %%(message)s"
+  file: "logs/facial_recognition.log"
+
+# Performance
+performance:
+  batch_size: 32
+  num_workers: 4
+  use_gpu: false
+  cache_encodings: true
