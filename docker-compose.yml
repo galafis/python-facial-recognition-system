@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  facial-recognition:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: facial-recognition-system
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data/input:/app/data/input
+      - ./data/output:/app/data/output
+      - ./data/known_faces:/app/data/known_faces
+    environment:
+      - DETECTION_MODEL=hog
+      - ENCODING_MODEL=large
+      - TOLERANCE=0.6
+      - LOG_LEVEL=INFO
+    healthcheck:
+      test: ["CMD", "python", "-c", "import cv2; print('ok')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+          cpus: '2.0'
